@@ -1,0 +1,17 @@
+{
+  "name": "realsocket_demo_app",
+  "description": "An awesome real time application that shows how to set up a realsocket app",
+  "version": "0.0.1",
+  "author": "Me <me@mydomain.com>",
+  "private": true,
+  "engines": { "node": ">= 0.6.0" },
+  "dependencies": {
+        "express":"",
+        "redis": "",
+        "colors":"",
+        "watch":"",
+        "emailjs":"",
+        "jade": "",
+        "underscore":""
+  }
+}
