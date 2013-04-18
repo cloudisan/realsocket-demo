@@ -9,9 +9,9 @@ module.exports = (responderId, config, ss) ->
   name = config && config.name || 'rpc'
 
   # Serve client code
-  code = fs.readFileSync(__dirname + '/client.' + (process.env['SS_DEV'] && 'coffee' || 'js'), 'utf8')
-  ss.client.send('mod', 'socketstream-rpc', code, {coffee: process.env['SS_DEV']})
-  ss.client.send('code', 'init', "require('socketstream-rpc')(#{responderId}, {}, require('socketstream').send(#{responderId}));")
+  #code = fs.readFileSync(__dirname + '/client.' + (process.env['SS_DEV'] && 'coffee' || 'js'), 'utf8')
+  #ss.client.send('mod', 'socketstream-rpc', code, {coffee: process.env['SS_DEV']})
+  #ss.client.send('code', 'init', "require('socketstream-rpc')(#{responderId}, {}, require('socketstream').send(#{responderId}));")
 
   # Return API
   name: name
