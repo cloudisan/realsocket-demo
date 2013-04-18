@@ -899,7 +899,7 @@ exports.encodePacket = function (packet) {
 exports.decodePacket = function (data) {
   var type = data.charAt(0);
 
-  if (Number(type) != type || !packetslist[type]) {
+  if (isNaN(Number(type)) || !packetslist[type]) {
     return err;
   }
 
@@ -1035,7 +1035,7 @@ function Socket (opts) {
   opts = opts || {};
   this.secure = null != opts.secure ? opts.secure : (global.location && 'https:' == location.protocol);
   this.host = opts.host || opts.hostname || (global.location ? location.hostname : 'localhost');
-  this.port = opts.port || (global.location && location.port ? location.port : (this.secure ? 443 : 80));
+  this.port = opts.port || (global.location && location.port ? location.port : '');
   this.query = opts.query || {};
   this.query.uid = rnd();
   this.upgrade = false !== opts.upgrade;
@@ -1899,11 +1899,6 @@ function polling (opts) {
   if (global.location) {
     var isSSL = 'https:' == location.protocol;
     var port = location.port;
-
-    // some user agents have empty `location.port`
-    if (Number(port) != port) {
-      port = isSSL ? 443 : 80;
-    }
 
     xd = opts.host != location.hostname || port != opts.port;
     isXProtocol = opts.secure != isSSL;
@@ -3043,6 +3038,7 @@ exports.qs = function (obj) {
 
 });var exp = require('engine.io-client');if ("undefined" != typeof module) module.exports = exp;else eio = exp;
 })();
+
 require.define("eventemitter2.js", function (require, module, exports, __dirname, __filename){
 ;!function(exports, undefined) {
 
@@ -3694,7 +3690,7 @@ module.exports = function(serverStatus, message, config){
     config = { 
         secure  : document.location.protocol === "https:"
       , host    : document.location.hostname
-      , port    : document.location.protocol === "https:" ? 443 : document.location.port
+      , port    : document.location.port
     };
   }
 
@@ -3702,15 +3698,6 @@ module.exports = function(serverStatus, message, config){
     connect: function(){
       var sock = new eio.Socket(config);
 
-      sock.onopen = function() {
-        var sessionId = getCookie('connect.sid');
-        if (sessionId) {
-          sock.send('X|' + sessionId);
-        } else{
-          console.error('Unable to obtain session ID');
-        }
-      };
-     
       sock.onmessage = function(e) {
 
         var i, x, msg = e.data;
@@ -3767,7 +3754,6 @@ module.exports = function(serverStatus, message, config){
             reconnectionTimeout *= 1.5;
           }
         }, time);
-        clearTimeout();
       };
 
       sock.onclose = function() {
@@ -3800,4 +3786,5 @@ var getCookie = function(c_name) {
   }
   return '';
 }
+
 });
