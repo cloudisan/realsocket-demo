@@ -7,12 +7,20 @@
   "engines": { "node": ">= 0.6.0" },
   "dependencies": {
         "express":"",
+        "coffee-script":"",
         "redis": "",
         "colors":"",
         "watch":"",
         "emailjs":"",
         "apitree": "",
         "chokidar":"",
-        "underscore":""
+        "underscore":"",
+    	"eventemitter2": "",
+    	"uglify-js": "",
+    	"clean-css": "",
+    	"semver": "",
+    	"connect": "",
+    	"connect-redis": "",
+    	"engine.io": ""
   }
 }
