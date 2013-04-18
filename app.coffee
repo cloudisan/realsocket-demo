@@ -9,11 +9,18 @@ ss = require('./lib/socketstream')
 
 #asset = require('./lib/client/asset')(ss, options)
 
+ss.client.define('main',
+  view: 'app.html',
+  css:  ['libs/reset.css', 'app.styl'],
+  code: ['libs/jquery.min.js', 'app'],
+  tmpl: '*'
+);
+
+
 # Serve system libraries and modules
 app.get '/_serveDev/system?*', (request, response) ->
   utils.serve.js(system.serve.js(), response)
 
-  ###
 # Listen for requests for application client code
 app.get '/_serveDev/code?*', (request, response) ->
   thisUrl = url.parse(request.url)
@@ -21,7 +28,6 @@ app.get '/_serveDev/code?*', (request, response) ->
   path = utils.parseUrl(request.url)
   asset.js path, {pathPrefix: params.pathPrefix}, (output) ->
     utils.serve.js(output, response)
-###
 
 app.get '/_serveDev/start?*', (request, response) ->
   utils.serve.js(system.serve.initCode(), response)

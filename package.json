@@ -6,12 +6,15 @@
   "private": true,
   "engines": { "node": ">= 0.6.0" },
   "dependencies": {
-        "express":"",
-        "redis": "",
-        "colors":"",
-        "watch":"",
-        "emailjs":"",
-        "jade": "",
-        "underscore":""
+			"express":"",
+			"redis": "",
+			"colors":"",
+			"watch":"",
+			"emailjs":"",
+			"jade": "",
+			"underscore":"",
+			"uglify-js": "",
+			"apitree": "",
+			"engine.io": ""
   }
 }

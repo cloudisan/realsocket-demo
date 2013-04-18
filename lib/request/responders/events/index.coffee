@@ -10,6 +10,7 @@ module.exports = (responderId, config, ss) ->
 
   # Serve client code
   code = fs.readFileSync(__dirname + '/client.' + (process.env['SS_DEV'] && 'coffee' || 'js'), 'utf8')
+  #console.log ss
   ss.client.send('mod', 'events-responder', code, {coffee: process.env['SS_DEV']})
   ss.client.send('code', 'init', "require('events-responder')(#{responderId}, {}, require('socketstream').send(#{responderId}));")
 
