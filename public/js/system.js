@@ -3686,7 +3686,13 @@ var reconnectionTimeout = 1000;
 
 module.exports = function(serverStatus, message, config){
 
-  if (Object.keys(config).length === 0) {
+    var keys = (Object.keys || function (obj) {
+		var res = [];
+		for (var key in obj) res.push(key)
+		return res;
+	})(config);
+
+  if (keys.length === 0) {
     config = { 
         secure  : document.location.protocol === "https:"
       , host    : document.location.hostname
