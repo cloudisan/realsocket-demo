@@ -3697,13 +3697,6 @@ module.exports = function(serverStatus, message, config){
   return {
     connect: function(){
       var sock = new eio.Socket(config);
-      
-      sock.onopen = function() {
-        var sessionId = getCookie('connect.sid');
-        if (!sessionId) {
-        	$.cookie('connect.sid', 'the_value');
-        }
-      };
 
       sock.onmessage = function(e) {
 
