@@ -1,7 +1,7 @@
+process = require 'process'
 require('coffee-script') if process.env['SS_DEV']
 {spawn, exec} = require 'child_process'
 fs = require 'fs'
-process = require 'process'
 path = require 'path'
 express = require("express")
 url = require('url')
