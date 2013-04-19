@@ -1,5 +1,4 @@
 require('coffee-script')
-process = require 'process'
 {spawn, exec} = require 'child_process'
 fs = require 'fs'
 path = require 'path'
