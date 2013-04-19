@@ -49,7 +49,7 @@ launch = (cmd, options=[], callback) ->
   app.stderr.pipe(process.stderr)
   app.on 'exit', (status) -> callback?() if status is 0
   
-app.post '/auto_deploy', (req, res) =>
+app.all '/auto_deploy', (req, res) =>
   exec 'git pull origin develop && npm update && /etc/init.d/realsocket-demo stop && /etc/init.d/realsocket-demo start', (err) ->
     res.send err if err
     res.send 'the realsocket demo app has been deployed successfully...'
