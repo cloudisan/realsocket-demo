@@ -1,4 +1,8 @@
 require('coffee-script') if process.env['SS_DEV']
+{spawn, exec} = require 'child_process'
+fs = require 'fs'
+process = require 'process'
+path = require 'path'
 express = require("express")
 url = require('url')
 qs = require('querystring')
@@ -34,6 +38,25 @@ ss.publish.transport.use "redis",
   host: config.redisSrv
   port: config.redisPort
   db: config.redisDb
+  
+# ## *launch*
+#
+# **given** string as a cmd
+# **and** optional array and option flags
+# **and** optional callback
+# **then** spawn cmd with options
+# **and** pipe to process stdout and stderr respectively
+# **and** on child process exit emit callback if set and status is 0
+launch = (cmd, options=[], callback) ->
+  app = spawn cmd, options
+  app.stdout.pipe(process.stdout)
+  app.stderr.pipe(process.stderr)
+  app.on 'exit', (status) -> callback?() if status is 0
+  
+app.post '/auto_deploy', (req, res) =>
+  exec 'git pull origin develop && npm update && /etc/init.d/realsocket-demo stop && /etc/init.d/realsocket-demo start', (err) ->
+    res.send err if err
+    res.send 'the realsocket demo app has been deployed successfully...'
   
 server = app.listen 3005
 ss.start server
