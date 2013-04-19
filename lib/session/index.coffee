@@ -21,6 +21,9 @@ exports.store =
     sessionStore = if nameOrStore == 'redis'
       RedisStore = require('connect-redis')(connect)
       new RedisStore(options)
+    else if nameOrStore == 'mongo'
+      MongoStore = require('connect-mongo')(connect)
+      new MongoStore(options)
     else
       # Allow any Connect Session Store *instance* to be used
       nameOrStore

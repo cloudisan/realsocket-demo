@@ -17,11 +17,18 @@ ss.ws.transport.use "engineio",
     transports: [ "websocket", "htmlfile", "xhr-polling", "jsonp-polling" ]
   server: (io) ->
     io.set "log level", 4
-    
+
+###
 ss.session.store.use "redis",
   host: config.redisSrv
   port: config.redisPort
   db: config.redisDb
+###
+
+ss.session.store.use 'mongo',
+  host: config.mongoSrv,
+  port: config.mongoPort,
+  db: config.mongoDbName
 
 ss.publish.transport.use "redis",
   host: config.redisSrv
