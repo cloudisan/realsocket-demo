@@ -10,10 +10,7 @@ app = express()
 app.use express.static(__dirname + "/public")
 ss = require('./lib/socketstream')
 config = undefined
-if (ss.env == 'production')
-  config = require('./server/config/production')
-else
-  config = require('./server/config/dev')
+config = require('./server/config/dev')
 
 
 ss.ws.transport.use "engineio",
