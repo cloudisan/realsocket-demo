@@ -28,7 +28,7 @@ ss.publish.transport.use "redis",
   port: config.redisPort
   db: config.redisDb
   
-server = app.listen 3001
+server = app.listen 3005
 ss.start server
 
-console.log "Express started on port 3001"
+console.log "Express started on port 3005"
