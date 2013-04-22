@@ -5,6 +5,7 @@ path = require 'path'
 express = require("express")
 url = require('url')
 qs = require('querystring')
+assets = require('./lib/assets')
 app = express()
 app.use express.static(__dirname + "/public")
 ss = require('./lib/socketstream')
@@ -53,7 +54,14 @@ app.all '/auto_deploy', (req, res) =>
   exec 'git pull origin develop && npm update && /etc/init.d/realsocket-demo stop && /etc/init.d/realsocket-demo start', { cwd: process.cwd()}, (err) ->
     res.send err if err
     res.send "the realsocket demo app has been deployed successfully..., OK, that's fine."
-  
+
+#Load assets
+assets.load()
+body = assets.serve.js()
+app.get "/system.js", (req, res) ->
+  res.writeHead(200, {'Content-type': 'text/javascript; charset=utf-8', 'Content-Length': Buffer.byteLength(body)})
+  res.end(body)
+
 server = app.listen 3005
 ss.start server
 
